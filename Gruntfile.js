@@ -12,14 +12,14 @@ module.exports = function( grunt ) {
 
     // specify an alternate install location for Bower
     bower: {
-      dir: 'app/scripts/vendor'
+      dir: 'public/scripts/vendor'
     },
 
     // Coffee to JS compilation
     coffee: {
       dist: {
-        src: 'app/scripts/**/*.coffee',
-        dest: 'app/scripts'
+        src: 'public/scripts/**/*.coffee',
+        dest: 'public/scripts'
       }
     },
 
@@ -29,8 +29,8 @@ module.exports = function( grunt ) {
         // http://compass-style.org/help/tutorials/configuration-reference/#configuration-properties
         options: {
           css_dir: 'temp/styles',
-          sass_dir: 'app/styles',
-          images_dir: 'app/images',
+          sass_dir: 'public/styles',
+          images_dir: 'public/images',
           javascripts_dir: 'temp/scripts',
           force: true
         }
@@ -55,16 +55,16 @@ module.exports = function( grunt ) {
       },
       compass: {
         files: [
-          'app/styles/**/*.{scss,sass}'
+          'public/styles/**/*.{scss,sass}'
         ],
         tasks: 'compass reload'
       },
       reload: {
         files: [
-          'app/*.html',
-          'app/styles/**/*.css',
-          'app/scripts/**/*.js',
-          'app/images/**/*'
+          'public/*.html',
+          'public/styles/**/*.css',
+          'public/scripts/**/*.js',
+          'public/images/**/*'
         ],
         tasks: 'reload'
       }
@@ -74,8 +74,10 @@ module.exports = function( grunt ) {
     // https://github.com/cowboy/grunt/blob/master/docs/task_lint.md#lint-built-in-task
     lint: {
       files: [
+        'app.js',
+        'routes/*.js',
         'Gruntfile.js',
-        'app/scripts/**/*.js',
+        'public/scripts/**/*.js',
         'spec/**/*.js'
       ]
     },
@@ -110,12 +112,12 @@ module.exports = function( grunt ) {
     output: 'dist',
 
     mkdirs: {
-      staging: 'app/'
+      staging: 'public/'
     },
 
     // Below, all paths are relative to the staging directory, which is a copy
-    // of the app/ directory. Any .gitignore, .ignore and .buildignore file
-    // that might appear in the app/ tree are used to ignore these values
+    // of the public/ directory. Any .gitignore, .ignore and .buildignore file
+    // that might appear in the public/ tree are used to ignore these values
     // during the copy process.
 
     // concat css/**/*.css files, inline @import, output a single minified css
