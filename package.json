@@ -16,7 +16,8 @@
     "express": "3.0.0rc4",
     "jade": "*",
     "stylus": "*",
-    "mongoose": "~3.1.2"
+    "mongoose": "~3.1.2",
+    "mongoose-auth": "0.0.12"
   },
   "devDependencies": {
     "mocha": "~1.4.2",
