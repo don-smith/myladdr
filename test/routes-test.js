@@ -10,26 +10,28 @@
 
   describe('routes', function() {
     describe('index', function() {
-      return it('should display the home page', function() {
+      return it('should display the home page', function(done) {
         var req, res;
         req = null;
         res = {
           render: function(view, vars) {
             expect(view).to.equal('index');
-            return expect(vars.title).to.equal('myLaddr Home');
+            expect(vars.title).to.equal('myLaddr Home');
+            return done();
           }
         };
         return routes.index(req, res);
       });
     });
     return describe('profile', function() {
-      return it('should display the profile page', function() {
+      return it('should display the profile page', function(done) {
         var req, res;
         req = null;
         res = {
           render: function(view, vars) {
             expect(view).to.equal('profile');
-            return expect(vars.title).to.equal('Profile');
+            expect(vars.title).to.equal('Profile');
+            return done();
           }
         };
         return profile.index(req, res);

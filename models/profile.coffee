@@ -2,7 +2,21 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
 ProfileSchema = new Schema
-	username: String,
+	fullname: String,
 	isActive: Boolean
 
-module.exports = mongoose.model 'ProfileModel', ProfileSchema
+Profile = mongoose.model 'ProfileModel', ProfileSchema
+
+module.exports = 
+
+	profile: Profile,
+	
+	add: (fullname) ->
+		newProfile = new Profile
+			fullname: fullname,
+			isActive: false
+		newProfile.save (err) ->
+			if err 
+				throw err
+
+

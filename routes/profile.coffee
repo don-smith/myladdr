@@ -1,8 +1,12 @@
+profile = require '../models/profile'
 
-#
-# * GET user's profile
-# 
-exports.index = (req, res) ->
-  res.render 'profile',
-  	title: 'Profile',
-  	details: {}
+module.exports = 
+
+	index: (req, res) ->
+	  res.render 'profile',
+	  	title: 'Profile',
+	  	details: {}
+
+	newuser: (req, res) ->
+		profile.add req.params.fullname
+		res.redirect '/profile'

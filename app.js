@@ -32,18 +32,29 @@ Module dependencies.
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(require('stylus').middleware(__dirname + '/public'));
-    app.use(express["static"](path.join(__dirname, 'public')));
-    return mongoose.connect('mongodb://managr:h0wi5tH1sX@ds035787-a.mongolab.com:35787/myladdr');
+    return app.use(express["static"](path.join(__dirname, 'public')));
   });
 
   app.configure('development', function() {
+    mongoose.connect('mongodb://localhost:27017/myladdr');
+    return app.use(express.errorHandler({
+      dumpExceptions: true,
+      showStack: true
+    }));
+  });
+
+  app.configure('production', function() {
+    var mongoUrl;
+    mongoUrl = 'mongodb://managr:h0wi5tH1sX@ds035787-a.mongolab.com:35787/myladdr';
     app.use(express.errorHandler());
-    return mongoose.connect('mongodb://localhost:27017/myladdr');
+    return mongoose.connect(mongoUrl);
   });
 
   app.get('/', routes.index);
 
   app.get('/profile', profile.index);
+
+  app.post('/newuser', profile.newuser);
 
   http.createServer(app).listen(app.get('port'), function() {
     return console.log('Express server listening on port ' + app.get('port'));

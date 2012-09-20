@@ -1,5 +1,16 @@
 extends layout
 
 block content
-  h1= title
-  p #{title}
+	h1= title
+
+	form(method="post", action="/newuser")
+
+		.field
+			label(for="fullname") Full name:
+			.input
+				input#fullname(type="text", name="fullname")
+
+		input(type="submit", value="Save")
+
+	p
+		a(href="/") home

@@ -22,14 +22,21 @@ app.configure ->
   app.use app.router
   app.use require('stylus').middleware __dirname + '/public' 
   app.use express.static(path.join __dirname, 'public')
-  mongoose.connect 'mongodb://managr:h0wi5tH1sX@ds035787-a.mongolab.com:35787/myladdr'
 
 app.configure 'development', ->
-  app.use express.errorHandler()
   mongoose.connect 'mongodb://localhost:27017/myladdr'
+  app.use express.errorHandler
+    dumpExceptions: true
+    showStack: true
+
+app.configure 'production', ->
+  mongoUrl = 'mongodb://managr:h0wi5tH1sX@ds035787-a.mongolab.com:35787/myladdr'
+  app.use express.errorHandler()
+  mongoose.connect mongoUrl
 
 app.get '/', routes.index
 app.get '/profile', profile.index
+app.post '/newuser', profile.newuser
 
 http.createServer(app).listen app.get('port'), ->
   console.log 'Express server listening on port ' + app.get('port')
