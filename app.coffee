@@ -2,6 +2,7 @@
 Module dependencies.
 ###
 
+mongooseAuth = require 'mongoose-auth'
 mongoose = require 'mongoose'
 express = require 'express'
 http = require 'http'
@@ -19,7 +20,7 @@ app.configure ->
   app.use express.logger 'dev' 
   app.use express.bodyParser()
   app.use express.methodOverride()
-  app.use app.router
+  app.use mongooseAuth.middleware()
   app.use require('stylus').middleware __dirname + '/public' 
   app.use express.static(path.join __dirname, 'public')
 
@@ -34,7 +35,9 @@ app.configure 'production', ->
   app.use express.errorHandler()
   mongoose.connect mongoUrl
 
-app.get '/', routes.index
+# mongooseAuth.helpExpress app
+
+app.get '/home', routes.index
 app.get '/profile', profile.index
 app.post '/newuser', profile.newuser
 

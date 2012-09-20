@@ -6,7 +6,9 @@ Module dependencies.
 
 
 (function() {
-  var app, express, http, mongoose, path, profile, routes;
+  var app, express, http, mongoose, mongooseAuth, path, profile, routes;
+
+  mongooseAuth = require('mongoose-auth');
 
   mongoose = require('mongoose');
 
@@ -30,7 +32,7 @@ Module dependencies.
     app.use(express.logger('dev'));
     app.use(express.bodyParser());
     app.use(express.methodOverride());
-    app.use(app.router);
+    app.use(mongooseAuth.middleware());
     app.use(require('stylus').middleware(__dirname + '/public'));
     return app.use(express["static"](path.join(__dirname, 'public')));
   });
@@ -50,7 +52,7 @@ Module dependencies.
     return mongoose.connect(mongoUrl);
   });
 
-  app.get('/', routes.index);
+  app.get('/home', routes.index);
 
   app.get('/profile', profile.index);
 
