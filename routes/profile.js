@@ -2,8 +2,9 @@
 (function() {
 
   exports.index = function(req, res) {
-    return res.render("index", {
-      title: "myLaddr Home"
+    return res.render('profile', {
+      title: 'Profile',
+      details: {}
     });
   };
 
