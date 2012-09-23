@@ -5,3 +5,10 @@ block content
 	p Want to check out your 
 		a(href="/profile") profile
 		?
+
+	if everyauth.loggedIn
+		p Logged in as: #{everyauth.facebook.user.name}
+		p Facebook user id: #{everyauth.facebook.user.id}
+		p: a(href="/logout") Logout
+	else
+		p: a(href="/auth/facebook") Login with Facebook

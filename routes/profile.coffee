@@ -5,8 +5,8 @@ module.exports =
 	index: (req, res) ->
 		res.render 'profile',
 			title: 'Profile',
-			fullname: req.params.fullname
+			fullname: user.fullname
 
 	newuser: (req, res) ->
-		user.add req.params.fullname
+		user.add req.body.fullname
 		res.redirect '/profile'
